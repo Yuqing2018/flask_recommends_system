@@ -1,22 +1,9 @@
-# Bootstrap-Flask
+# 本出版物推荐系统利用 pycharm + flask + SparqlWrapper 完成
 
-[Bootstrap](https://getbootstrap.com) 4 helper for Flask/Jinja2.
-Based on [Flask-Bootstrap](https://github.com/mbr/flask-bootstrap),
-but lighter and better.
+1、clone 代码
 
-## Links
+2、进入examples 目录
 
-* [Documentation](https://bootstrap-flask.readthedocs.io/en/latest/)
-* [PyPI](https://pypi.org/project/Bootstrap-Flask/)
-* [Examples](https://github.com/greyli/bootstrap-flask/tree/master/examples)
+3、pip install -r requirements.txt
 
-## TODO
-
-- [ ] Remove required attribute handle code in render_form/render_field
-- [ ] Add `endpoint` parameter in `render_pager`
-- [ ] Add render test for every input and form type.
-
-## License
-
-This project is licensed under the MIT License (see the
-`LICENSE` file for details).
+4 python app.py 启动项目
