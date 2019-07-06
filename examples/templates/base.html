@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap-Flask Demo Application</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {{ bootstrap.load_css() }}
+    <style>
+    .jumbotron {
+        margin-bottom: 0;
+    }
+    #keyword {
+        height: 4.81rem;
+        margin-right: 0;
+        font-size: 2rem;
+    }
+    .foo {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 0 2rem;
+        margin: 0.5rem;
+        min-height: 13rem;
+    }
+    .foo h2 {
+        margin-bottom: 2rem;
+    }
+	header {
+		margin-bottom: 1.5rem;
+	}
+	#keyword {
+        height: 3.8rem;
+        margin-right: 1rem;
+        font-size: 2rem;
+    }
+	.body-content {
+		border: 1px solid #ddd;
+		border-radius: 5px;
+	}
+	#myTabContent {
+		padding: 2rem 2rem 0;
+	}
+</style>
+</head>
+<body>
+<main class="container">
+    {% block content %}{% endblock %}
+    <footer class="text-center">
+        {% block footer %}
+            <small> &copy; 2018 <a href="http://greyli.com" title="Written by Grey Li">Grey Li</a>
+            </small>
+        {% endblock %}
+    </footer>
+</main>
+{{ bootstrap.load_js() }}
+</body>
+</html>

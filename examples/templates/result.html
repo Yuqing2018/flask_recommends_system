@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/nav.html' import render_nav_item, render_breadcrumb_item %}
+{% block content %}
+<div class="site-result">
+	<header class="row">
+		<form class="form row" method="get">
+            <input type="hidden" name="r" value="index" />
+            <div class="col-md-6 col-sm-8 col-xs-8">
+                <input id="keyword" type="text" class="form-control" placeholder="请输入关键词" value="{{ form.keyword }}" name="keyword">
+            </div>
+            <div class="col-md-4 col-sm-2 col-xs-2" style="padding: 0;">
+                <button id="search" type="submit" class="btn btn-lg btn-success">
+                    开始检索
+                </button>
+            </div>
+        </form>
+	</header>
+	<div class="body-content">
+        <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+        {% for name, attr in pub_type_dict.items() %}
+        {% if loop.index == 1 %}
+            <li class="nav-item">
+                <a class="nav-link active" id="{{ attr }}" data-toggle="pill" href="#{{ attr }}_c" role="tab"
+                   aria-controls="{{ attr }}_c" aria-selected="true">{{ name }}
+                </a>
+            </li>
+
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" id="{{ attr }}" data-toggle="pill" href="#{{ attr }}_c" role="tab"
+                   aria-controls="{{ attr }}_c" aria-selected="false">{{ name }}
+                </a>
+            </li>
+        {% endif %}
+        {% endfor %}
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+
+        {% for attr in pub_type_dict.values() %}
+            {% if loop.index == 4 %}
+            <div class="tab-pane fade in" id="{{ attr }}_c" role="tabpanel"
+                         aria-labelledby="{{ attr }}">
+<!--                <div class="tab-pane fade in" id="data-analysis">-->
+
+				    {% if is_plot %}
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<div id="bar-container"> <a target="_blank"  href="{{url_for('data_analyses',film=nums['Film'],book=nums['Book'],game=nums['Game'])}}">数据分析</a>
+</div>
+						</div>
+						<div class="col-md-6 col-sm-12 col-xs-12">
+                            <div id="pie-container"></div>
+                        </div>
+                    {%else %}
+						<p>没有相关数据</p>
+                    {%endif%}
+                </div>
+            {% else %}
+                {% if loop.index == 1 %}
+                <div class="tab-pane fade show active" id="{{ attr }}_c" role="tabpanel"
+                         aria-labelledby="{{ attr }}">
+                {% else %}
+                    <div class="tab-pane fade in" id="{{ attr }}_c" role="tabpanel"
+                         aria-labelledby="{{ attr }}">
+                {%endif %}
+                {% if nums[attr] == 0 %}
+                        <p>没有搜索到相关信息</p>
+                {% else %}
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="10%">序号</th>
+                                    <th width="20%">名称</th>
+                                    <th>简介</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in data[attr]:%}
+                                <tr>
+                                    <td>{{loop.index}}</td>
+                                    <td>
+                                        <a target="_blank"  href="{{url_for('getInfo',pid=item['pid'],type=attr)}}">{{item['name']}}</a>
+                                    </td>
+                                    <td>{{item['abstract']}}</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                {% endif %}
+                    </div>
+              {% endif %}
+        {% endfor %}
+
+        </div>
+
+	</div>
+</div>
+    {%endblock%}

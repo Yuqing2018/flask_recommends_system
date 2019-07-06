@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Some title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+   <div class="tab-pane fade in" id="data-analysis">
+				    {% if is_plot == 1 %}
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<div id="bar-container"></div>
+						</div>
+						<div class="col-md-6 col-sm-12 col-xs-12">
+                            <div id="pie-container"></div>
+                        </div>
+                    {%else %}
+						<p>没有相关数据</p>
+                    {%endif%}
+                </div>
+  </body>
+ <script>
+     $(function(){
+Highcharts.chart('bar-container', {
+chart: {
+    type: 'bar'
+},
+title: {
+    text: '出版物检索结果'
+},
+exporting:{
+    enabled:false
+},
+credits: {
+    enabled: false
+},
+xAxis: {
+    categories: ['电影', '图书', '游戏']
+},
+yAxis: {
+    min: 0,
+    title: {
+        text: '检索结果'
+    }
+},
+legend: {
+    reversed: true,
+    enabled: false
+},
+plotOptions: {
+    series: {
+        stacking: 'normal'
+    }
+},
+series: [{
+    name: '数量',
+    data: [ {{nums['Film']}}, {{nums['Book']}}, {{nums['Game']}} ]
+}]
+});
+
+// Build the pie chart
+Highcharts.chart('pie-container', {
+chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+},
+title: {
+    text: '出版物类别占比'
+},
+exporting:{
+    enabled:false
+},
+credits: {
+    enabled: false
+},
+tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+},
+plotOptions: {
+    pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            style: {
+                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+        }
+    }
+},
+series: [{
+    name: '比例',
+    colorByPoint: true,
+    data: [{
+        name: '电影',
+        y: {{nums['Film']}}
+    }, {
+        name: '图书',
+        y: {{nums['Book']}}
+    }, {
+        name: '游戏',
+        y: {{nums['Game']}}
+    }]
+}]
+})
+})
+ </script>
+</html>

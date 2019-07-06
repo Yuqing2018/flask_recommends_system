@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="body-content row">
+
+		<div class="col-md-8 col-sm-8 col-xs-12">
+			<h2 id="tit" class="text-center">
+				<a id="link" target="_blank" href="{{info['url']}}">{{info['name']}}</a>
+			</h2>
+			<p class="infobox">
+				<span id="abstract" class="label label-success">简介</span>
+				{{info['abstract']}}
+			</p>
+		</div>
+
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<h3 id="rec">推荐</h3>
+			{% for item in recommends %}
+			<a href="{{item['url'] }}" target="_blank" class="list-group-item">
+				{{item['name'] }}
+			</a>
+            {%endfor%}
+        </div>
+</div>
+{% endblock %}
